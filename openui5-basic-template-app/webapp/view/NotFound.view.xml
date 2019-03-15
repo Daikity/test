@@ -1,0 +1,11 @@
+<mvc:View
+    controllerName="webapp.controller.NotFound"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc">
+    <MessagePage
+        title="Страница не найдена"
+        text="Извените, но запрашиваемый вами ресурс не найден"
+        description="Проверьте URL и попробуйте снова"
+        showNavButton="true"
+        navButtonPress="goBack"/>
+</mvc:View>

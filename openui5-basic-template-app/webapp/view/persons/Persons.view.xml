@@ -1,0 +1,53 @@
+<!DOCTYPE XML>
+<mvc:View
+	controllerName="webapp.controller.persons.Persons"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:f="sap.ui.layout.form"
+	busyIndicatorDelay="0">
+	<Page
+		id="employeePage"
+		title="{FirstName} {LastName}"
+		showNavButton="true"
+		navButtonPress=".onNavBack"
+		class="sapUiResponsiveContentPadding">
+		<content>
+			<Panel
+				id="employeePanel"
+				width="auto"
+				class="sapUiResponsiveMargin sapUiNoContentPadding">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="Сотрудник: {FirstName} {LastName}" level="H2"/>
+						<ToolbarSpacer />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<f:SimpleForm
+						editable="false"
+						layout="ResponsiveGridLayout"
+						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
+						columnsL="1" columnsM="1">
+						<f:content>
+                            <Label text="Логин"/>
+							<Text text="{UserName}"/>
+                            <Label text="Имя"/>
+                            <Text text="{FirstName}"/>
+                            <Label text="Фамилия"/>
+                            <Text text="{LastName}"/>
+                            <Label text="Возраст"/>
+                            <Text text="{Age}"/>
+                            
+                            <Text text="{Address}"/>
+                            <Text text="{City}"/>
+                            <Text text="{Region}"/>
+                            <Text text="{PostalCode}"/>
+                            <Text text="{Country}"/>
+                            <Text text="{HomePhone}"/>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>

@@ -1,15 +1,20 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
-	"sap/ui/demo/basicTemplate/model/formatter"
-], function(Controller, formatter) {
+	"webapp/controller/BaseController",
+	"../model/formatter",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, formatter, JSONModel) {
 	"use strict";
 
-	return Controller.extend("webapp.controller.App", {
+	return BaseController.extend("webapp.controller.App", {
 
 		formatter: formatter,
 
 		onInit: function () {
-
-		}
+			var oJSONData = {
+				busy : false
+			};
+			var oModel = new JSONModel(oJSONData);
+			this.getView().setModel(oModel, "appView");
+		},
 	});
 });

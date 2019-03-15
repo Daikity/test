@@ -11,7 +11,16 @@
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
 		"resources": "resources.json",
-		"ach": "ach"
+		"ach": "ach",
+		"dataSources": {
+			"default": {
+				"uri": "https://services.odata.org/TripPinRESTierService/(S(id))/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "4.0"
+				}
+			}
+		}
 	},
 
 	"sap.ui": {
@@ -56,6 +65,15 @@
 				"settings": {
 					"bundleName": "webapp.i18n.i18n"
 				}
+			},
+			"": {
+				"dataSource": "default",
+				"settings": {
+					"autoExpandSelect": true,
+					"operationMode": "Server",
+					"groupId": "$direct",
+					"synchronizationMode": "None"
+				}
 			}
 		},
 		"resources": {
@@ -70,6 +88,9 @@
 				"viewPath": "webapp.view",
 				"controlId": "app",
 				"controlAggregation": "pages",
+				"bypassed": {
+					"target": "notFound"
+				},
 				"async": true
 			},
 			"routes": [
@@ -77,6 +98,10 @@
 					"pattern": "",
 					"name": "home",
 					"target": ["home"]
+				}, {
+					"pattern": "persons/{employeeID}",
+					"name": "persons",
+					"target": "persons"
 				}
 			],
 			"targets": {
@@ -85,6 +110,16 @@
 					"viewId": "home",
 					"viewLevel": 1,
 					"title": "{i18n>title}"
+				},
+				"notFound": {
+				   "viewId": "notFound",
+				   "viewName": "NotFound",
+				   "transition": "show"
+				},
+				"persons": {
+					"viewId": "persons",
+					"viewName": "persons.Persons",
+					"viewLevel" : 3
 				}
 			}
 		}

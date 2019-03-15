@@ -6,7 +6,59 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
 		id="page"
-		title="{i18n>title} Вас дас тряс">
-		<content></content>
+		title="Список сотрудников">
+		<content>
+			<Panel>
+				<Table
+					id="peopleList"
+					growing="false"
+					growingThreshold="5"
+					items="{
+						path: '/People'
+					}">
+					<headerToolbar>
+						<Toolbar>
+							<Button icon="sap-icon://close-command-field" />
+							<Title text="Сотрудники" level="H2"/>
+							<ToolbarSpacer />
+							<SearchField id="searchField" search="" width="20%"/>
+							<Button icon="sap-icon://open-command-field" press=".onNext" />
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column id="userID">
+							<Text text="ID"/>
+						</Column>
+						<Column id="firstNameColumn">
+							<Text text="Имя"/>
+						</Column>
+						<Column id="lastNameColumn">
+							<Text text="Фамилия"/>
+						</Column>
+						<Column id="ageColumn">
+							<Text text="Возраст"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem
+							type="Navigation"
+							press=".onColumnListItemPressed">
+							<cells>
+								<Text text="{EmployeeID}"/>
+							</cells>
+							<cells>
+								<Text text="{FirstName}"/>
+							</cells>
+							<cells>
+								<Text text="{LastName}"/>
+							</cells>
+							<cells>
+								<Text text="{Age}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</Panel>
+		</content>
 	</Page>
 </mvc:View>
