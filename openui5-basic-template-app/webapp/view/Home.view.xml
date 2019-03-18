@@ -21,7 +21,7 @@
 							<Button icon="sap-icon://close-command-field" />
 							<Title text="Сотрудники" level="H2"/>
 							<ToolbarSpacer />
-							<SearchField id="searchField" search="" width="20%"/>
+							<SearchField id="searchField" search=".onSearchEmployeesTable" width="20%"/>
 							<Button icon="sap-icon://open-command-field" press=".onNext" />
 						</Toolbar>
 					</headerToolbar>
