@@ -6,10 +6,10 @@
 	xmlns:f="sap.ui.layout.form"
 	busyIndicatorDelay="0">
 	<Page
-		id="employeePage"
-		title="{FirstName} {LastName}"
+		id="usersPage"
+		title="{/User/Value}"
 		showNavButton="true"
-		navButtonPress=".onNavBack"
+		navButtonPress=".goBack"
 		class="sapUiResponsiveContentPadding">
 		<content>
 			<Panel
@@ -18,7 +18,7 @@
 				class="sapUiResponsiveMargin sapUiNoContentPadding">
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Сотрудник: {FirstName} {LastName}" level="H2"/>
+						<Title text="Сотрудник: {/User/Value}" level="H2"/>
 						<ToolbarSpacer />
 					</Toolbar>
 				</headerToolbar>
@@ -29,21 +29,10 @@
 						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
 						columnsL="1" columnsM="1">
 						<f:content>
-                            <Label text="Логин"/>
-							<Text text="{UserName}"/>
-                            <Label text="Имя"/>
-                            <Text text="{FirstName}"/>
-                            <Label text="Фамилия"/>
-                            <Text text="{LastName}"/>
-                            <Label text="Возраст"/>
-                            <Text text="{Age}"/>
-                            
-                            <Text text="{Address}"/>
-                            <Text text="{City}"/>
-                            <Text text="{Region}"/>
-                            <Text text="{PostalCode}"/>
-                            <Text text="{Country}"/>
-                            <Text text="{HomePhone}"/>
+                            <Label text="Табельный номер"/>
+							<Text text="{/User/Pernr}"/>
+                            <Label text="Фио"/>
+                            <Text text="{/User/Value}"/>
 						</f:content>
 					</f:SimpleForm>
 				</content>

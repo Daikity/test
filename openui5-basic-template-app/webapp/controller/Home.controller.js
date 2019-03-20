@@ -2,9 +2,11 @@ sap.ui.define([
 	"webapp/controller/BaseController",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator",
-	"../model/formatter"
+	"../model/formatter",
+	"sap/m/MessageBox",
+	"sap/ui/model/json/JSONModel"
 	
-], function(BaseController, Filter, FilterOperator, formatter) {
+], function(BaseController, Filter, FilterOperator, formatter, MessageBox, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("webapp.controller.App", {
@@ -12,69 +14,94 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit: function () {
-			var oRouter = this.getRouter();
-			this._oTable = this.byId("peopleList");
-			this._sSearchQuery = null;
-			this._oRouterArgs = null;
-
-			oRouter.getRoute("home").attachMatched(this._onRouteMatched, this);
-
+			this.oRouters = this.getRouter();
+			this.ServModel = this.getSrvModel("empl");
+			this.jPaginPages = new JSONModel();
+			this.jModel = new JSONModel();
 			
+			this.jModel.setProperty("/canBack", false);
+			this.getOData();
+		},
+		
+
+		onItemPressed:function(oEvent){
+			var oItem = oEvent.getSource();
+			var oCtx = oItem.getBindingContext();
+			
+			this.getRouter().navTo("persons", {
+				Pernr: oCtx.getProperty("Pernr")
+			});
 		},
 
-		_onRouteMatched : function (oEvent) {
-			
-			this._oRouterArgs = oEvent.getParameter("arguments");
-			this._oRouterArgs.query = this._oRouterArgs["?query"] || {};
-
-			if (this._oRouterArgs.query) {
-				
-				this._applySearchFilter(this._oRouterArgs.query.search);
+		getOData: function (){
+			this.jModel.setProperty("/page", 1);
+			this.ServModel.read('/Emps', {
+				success: function(oData){
+					oData.results.forEach((el, i) => {
+						el.id = (i+1)
+					});
+					this.jModel.setProperty("/Users", oData);
+					this.jModel.setProperty("/page", 0 );
+					this.onNext();
+				}.bind(this),
+				error: function(){
+					MessageBox.error("Ошибка чтения данных!");
+				}
+			});
+			this.getView().setModel(this.jModel);
+		},
+		onNext: function (oE) {
+			var page = this.jModel.getData().page;
+			var fullData = this.jModel.getData().Users.results;
+			if(oE){
+				var id = oE.getSource().getId();
+				id = id.split('---home--')[1];
 			}
 			
-		},
-		_applySearchFilter : function (sSearchQuery) {
-			var aFilters, oFilter, oBinding;
-
-			// first check if we already have this search value
-			if (this._sSearchQuery === sSearchQuery) {
-				return;
-			}
-			this._sSearchQuery = sSearchQuery;
-			this.byId("searchField").setValue(sSearchQuery);
-
-			// add filters for search
-			aFilters = [];
-			if (sSearchQuery && sSearchQuery.length > 0) {
-				aFilters.push(new Filter("FirstName", FilterOperator.Contains, sSearchQuery));
-				aFilters.push(new Filter("LastName", FilterOperator.Contains, sSearchQuery));
-				oFilter = new Filter({ filters: aFilters, and: false });  // OR filter
-			} else {
-				oFilter = null;
+			switch (id) {
+				case "incBtn":	page = Number(page)+1;
+					break;
+				case "decBtn": page = Number(page)-1;
+					break;
+				default: page = Number(page)+1;
+					break;
 			}
 
-			// update list binding
-			oBinding = this._oTable.getBinding("items");
-			oBinding.filter(oFilter, "Application");
-		},
-		onSearchEmployeesTable : function (oEvent) {
-			var oRouter = this.getRouter();
+			this.jModel.setProperty("/page", page );
 			
-			this._oRouterArgs.query.search = oEvent.getSource().getValue();
-			oRouter.navTo("home",this._oRouterArgs, true);
+			var showElms = fullData.filter(function(el) {
+				return el.id <= 5*page;
+			});
+			
+			if(showElms[0].id > 5 || showElms.length > 5){
+				showElms = showElms.filter(function(el, ind){
+					return el.id > ( showElms.length - 5 )
+				})
+			}
+			this.jModel.setProperty("/UsersPagin", showElms);
+			this.checkCanBack();
+			this.getView().setModel(this.jModel);
 		},
+		checkCanBack: function(){			
+			var data = this.jModel.getData().UsersPagin;
+			var btnBack = this.byId("decBtn");
 
-		onNext : function (oEvent) {
-			var oTable = new sap.m.Table("peopleList");
-			var oTableSource = oTable.getSource();
-			console.log(oTableSource);
+			if(data[0].id && data[0].id != 1) 
+				this.jModel.setProperty("/canBack", true);
+			else
+				this.jModel.setProperty("/canBack", false);
+			
+			btnBack.setEnabled(this.jModel.getData().canBack);
 		},
 		onColumnListItemPressed: function(oEvent){
 			var oItem = oEvent.getSource();
 			var oCtx = oItem.getBindingContext();
-			var paginPage = 1;
+			var aFilters = [];
 
-			//console.log(oCtx.getProperty());
+			aFilters.push(new Filter("EmployeeID", FilterOperator.Contains, oCtx.getProperty("EmployeeID")));
+			var oFilter = new Filter({ filters: aFilters, and: false });
+			var oBinding = this._oTable.getBinding("items");
+			oBinding.filter(oFilter, "Application");
 			
 			this.getRouter().navTo("persons", {
 				employeeID		: oCtx.getProperty("EmployeeID")

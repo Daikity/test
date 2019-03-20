@@ -10,36 +10,24 @@
 		},
 		"title": "{{appTitle}}",
 		"description": "{{appDescription}}",
-		"resources": "resources.json",
-		"ach": "ach",
 		"dataSources": {
-			"default": {
-				"uri": "https://services.odata.org/TripPinRESTierService/(S(id))/",
+			"emplData": {
+				"uri": "http://sapsb8.mow.molga.ru:8000/sap/opu/odata/SAP/ZMS_SRV/",
 				"type": "OData",
 				"settings": {
-					"odataVersion": "4.0"
+					"odataVersion": "2.0"
 				}
 			}
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
-		"icons": {
-			"icon": "",
-			"favIcon": "",
-			"phone": "",
-			"phone@2": "",
-			"tablet": "",
-			"tablet@2": ""
-		},
 		"deviceTypes": {
 			"desktop": true,
 			"tablet": true,
 			"phone": true
 		}
-	},
-
+  	},
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "webapp.view.App",
@@ -48,16 +36,11 @@
 			"id": "app"
 		},
 		"dependencies": {
-			"minUI5Version": "1.60.0",
+			"minUI5Version": "1.30",
 			"libs": {
-				"sap.ui.core": {},
 				"sap.m": {},
-				"sap.ui.layout": {}
+				"sap.ui.core": {}
 			}
-		},
-		"contentDensities": {
-			"compact": true,
-			"cozy": true
 		},
 		"models": {
 			"i18n": {
@@ -66,14 +49,8 @@
 					"bundleName": "webapp.i18n.i18n"
 				}
 			},
-			"": {
-				"dataSource": "default",
-				"settings": {
-					"autoExpandSelect": true,
-					"operationMode": "Server",
-					"groupId": "$direct",
-					"synchronizationMode": "None"
-				}
+			"empl": {
+				"dataSource": "emplData"
 			}
 		},
 		"resources": {
@@ -99,7 +76,7 @@
 					"name": "home",
 					"target": ["home"]
 				}, {
-					"pattern": "persons/{employeeID}",
+					"pattern": "persons/{Pernr}",
 					"name": "persons",
 					"target": "persons"
 				}

@@ -6,7 +6,9 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("webapp.BaseController", {
-
+		getSrvModel: function (sName){
+			return this.getOwnerComponent().getModel( sName );
+		},
 		getRouter : function () {
 			return UIComponent.getRouterFor(this);
 		},

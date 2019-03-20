@@ -12,48 +12,31 @@
 				<Table
 					id="peopleList"
 					growing="false"
-					growingThreshold="5"
-					items="{
-						path: '/People'
-					}">
+					growingThreshold="5"					
+					items="{/UsersPagin}">
 					<headerToolbar>
 						<Toolbar>
-							<Button icon="sap-icon://close-command-field" />
+							<Button 
+								press=".onNext"
+								id="decBtn" 
+								enabled="false" 
+								icon="sap-icon://close-command-field" />
 							<Title text="Сотрудники" level="H2"/>
 							<ToolbarSpacer />
-							<SearchField id="searchField" search=".onSearchEmployeesTable" width="20%"/>
-							<Button icon="sap-icon://open-command-field" press=".onNext" />
+							<Button id="incBtn"  icon="sap-icon://open-command-field" press=".onNext" />
 						</Toolbar>
 					</headerToolbar>
 					<columns>
-						<Column id="userID">
-							<Text text="ID"/>
-						</Column>
-						<Column id="firstNameColumn">
-							<Text text="Имя"/>
-						</Column>
-						<Column id="lastNameColumn">
-							<Text text="Фамилия"/>
-						</Column>
-						<Column id="ageColumn">
-							<Text text="Возраст"/>
-						</Column>
+						<Column id="eplID" demandPopin="true"><Text text="Табельный номер"/></Column>
+						<Column id="eplFIO" demandPopin="true"><Text text="ФИО"/></Column>
 					</columns>
 					<items>
-						<ColumnListItem
+						<ColumnListItem 
 							type="Navigation"
-							press=".onColumnListItemPressed">
+							press=".onItemPressed">
 							<cells>
-								<Text text="{EmployeeID}"/>
-							</cells>
-							<cells>
-								<Text text="{FirstName}"/>
-							</cells>
-							<cells>
-								<Text text="{LastName}"/>
-							</cells>
-							<cells>
-								<Text text="{Age}"/>
+								<Text text="{Pernr}"/>
+								<Text text="{Value}"/>
 							</cells>
 						</ColumnListItem>
 					</items>
