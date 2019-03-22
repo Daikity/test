@@ -18,7 +18,7 @@
 				class="sapUiResponsiveMargin sapUiNoContentPadding">
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Сотрудник: {/User/Value}" level="H2"/>
+						<Title text="{i18n>headerToolbarTitle}: {/User/Value}" level="H2"/>
 						<ToolbarSpacer />
 					</Toolbar>
 				</headerToolbar>
@@ -29,9 +29,9 @@
 						labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4"
 						columnsL="1" columnsM="1">
 						<f:content>
-                            <Label text="Табельный номер"/>
+                            <Label text="{i18n>perner}"/>
 							<Text text="{/User/Pernr}"/>
-                            <Label text="Фио"/>
+                            <Label text="{i18n>fio}"/>
                             <Text text="{/User/Value}"/>
 						</f:content>
 					</f:SimpleForm>

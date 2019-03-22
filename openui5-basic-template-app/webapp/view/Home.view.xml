@@ -6,7 +6,7 @@
 	xmlns:mvc="sap.ui.core.mvc">
 	<Page
 		id="page"
-		title="Список сотрудников">
+		title="{i18n>pageTitle}">
 		<content>
 			<Panel>
 				<Table
@@ -21,14 +21,15 @@
 								id="decBtn" 
 								enabled="false" 
 								icon="sap-icon://close-command-field" />
-							<Title text="Сотрудники" level="H2"/>
+							<Title text="{i18n>emplTitle}" level="H2"/>
 							<ToolbarSpacer />
 							<Button id="incBtn"  icon="sap-icon://open-command-field" press=".onNext" />
 						</Toolbar>
 					</headerToolbar>
 					<columns>
-						<Column id="eplID" demandPopin="true"><Text text="Табельный номер"/></Column>
-						<Column id="eplFIO" demandPopin="true"><Text text="ФИО"/></Column>
+						<Column id="eplID" demandPopin="true"><Text text="{i18n>perner}"/></Column>
+						<Column id="eplFIO" demandPopin="true"><Text text="{i18n>fio}"/></Column>
+						<Column id="epllabel" demandPopin="true"><Text text="{i18n>label}"/></Column>
 					</columns>
 					<items>
 						<ColumnListItem 
@@ -37,6 +38,7 @@
 							<cells>
 								<Text text="{Pernr}"/>
 								<Text text="{Value}"/>
+								<Text text="{label}"/>
 							</cells>
 						</ColumnListItem>
 					</items>

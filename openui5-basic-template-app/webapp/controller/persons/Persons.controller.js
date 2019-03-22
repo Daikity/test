@@ -11,13 +11,15 @@ sap.ui.define([
 
 			this.oRouter.getRoute("persons").attachMatched(this._onRouteMatched, this);
 		},
-		getOData: function (pern){
+		getOData: function (oArgs){
 			var jsModel = this.jPersModel;
 			var res;
+
 			this.ServModel.read('/Emps', {
 				success: function(oData){
+					console.log(this.ServModel)
 					res = oData.results.filter(function(el){
-						return el.Pernr == pern.Pernr
+						return el.Pernr == oArgs.Pernr
 					})
 					jsModel.setProperty("/User", res[0]);
 				}.bind(this),
@@ -25,6 +27,8 @@ sap.ui.define([
 					MessageBox.error("Ошибка чтения данных!");
 				}
 			});
+
+			
 			this.getView().setModel(jsModel);
 		},
 		_onRouteMatched : function (oEvent) {

@@ -29,7 +29,9 @@ sap.ui.define([
 			var oCtx = oItem.getBindingContext();
 			
 			this.getRouter().navTo("persons", {
-				Pernr: oCtx.getProperty("Pernr")
+				Pernr: oCtx.getProperty("Pernr"),
+				Label: oCtx.getProperty("Label"),
+				Value: oCtx.getProperty("Value")
 			});
 		},
 
