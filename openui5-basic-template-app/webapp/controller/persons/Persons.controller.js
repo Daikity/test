@@ -14,10 +14,36 @@ sap.ui.define([
 		getOData: function (oArgs){
 			var jsModel = this.jPersModel;
 			var res;
+			/*
+			*	createKey version is return 500 error message. 
+			*	please, just use "read" method and don't whory :)
+			*
+				var qKey = { 
+					Pernr: oArgs.Pernr,
+					Label: oArgs.Label,
+					Value: oArgs.Value 
+				};
+				var sKey = this.ServModel.createKey('/Emps', qKey);
 
-			this.ServModel.read('/Emps', {
+				this.ServModel.read(sKey, qKey, {
+					success: function(oData){
+						console.log(oData)
+						res = oData.results.filter(function(el){
+							return el.Pernr == oArgs.Pernr
+						})
+						jsModel.setProperty("/User", res[0]);
+					}.bind(this),
+					error: function(){
+						MessageBox.error("Ошибка чтения данных!");
+					}
+				});
+			*/
+
+			/*
+			*	no createKey method
+			*/
+			this.ServModel.read("/Emps", {
 				success: function(oData){
-					console.log(this.ServModel)
 					res = oData.results.filter(function(el){
 						return el.Pernr == oArgs.Pernr
 					})
