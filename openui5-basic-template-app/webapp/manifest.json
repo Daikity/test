@@ -12,7 +12,7 @@
 		"description": "{{appDescription}}",
 		"dataSources": {
 			"emplData": {
-				"uri": "http://sapsb8.mow.molga.ru:8000/sap/opu/odata/SAP/ZMS_SRV/",
+				"uri": "http://sapsx8:8000/sap/opu/odata/sap/ZHR_41_GS_SRV/",
 				"type": "OData",
 				"settings": {
 					"odataVersion": "2.0"
@@ -76,7 +76,7 @@
 					"name": "home",
 					"target": ["home"]
 				}, {
-					"pattern": "persons/{Pernr}",
+					"pattern": "persons/{PERSNO}",
 					"name": "persons",
 					"target": "persons"
 				}

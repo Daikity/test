@@ -7,7 +7,7 @@
 	busyIndicatorDelay="0">
 	<Page
 		id="usersPage"
-		title="{/User/Value}"
+		title="{/User/FIO}"
 		showNavButton="true"
 		navButtonPress=".goBack"
 		class="sapUiResponsiveContentPadding">
@@ -18,7 +18,7 @@
 				class="sapUiResponsiveMargin sapUiNoContentPadding">
 				<headerToolbar>
 					<Toolbar>
-						<Title text="{i18n>headerToolbarTitle}: {/User/Value}" level="H2"/>
+						<Title text="{i18n>headerToolbarTitle}: {/User/FIO}" level="H2"/>
 						<ToolbarSpacer />
 					</Toolbar>
 				</headerToolbar>
@@ -30,9 +30,9 @@
 						columnsL="1" columnsM="1">
 						<f:content>
                             <Label text="{i18n>perner}"/>
-							<Text text="{/User/Pernr}"/>
+							<Text text="{/User/PERSNO}"/>
                             <Label text="{i18n>fio}"/>
-                            <Text text="{/User/Value}"/>
+                            <Text text="{/User/FIO}"/>
 						</f:content>
 					</f:SimpleForm>
 				</content>

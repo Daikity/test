@@ -29,16 +29,14 @@
 					<columns>
 						<Column id="eplID" demandPopin="true"><Text text="{i18n>perner}"/></Column>
 						<Column id="eplFIO" demandPopin="true"><Text text="{i18n>fio}"/></Column>
-						<Column id="epllabel" demandPopin="true"><Text text="{i18n>label}"/></Column>
 					</columns>
 					<items>
 						<ColumnListItem 
 							type="Navigation"
 							press=".onItemPressed">
 							<cells>
-								<Text text="{Pernr}"/>
-								<Text text="{Value}"/>
-								<Text text="{label}"/>
+								<Text text="{PERSNO}"/>
+								<Text text="{FIO}"/>
 							</cells>
 						</ColumnListItem>
 					</items>

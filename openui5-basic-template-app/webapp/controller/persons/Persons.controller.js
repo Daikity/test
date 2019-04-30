@@ -1,7 +1,8 @@
 sap.ui.define([
 	"webapp/controller/BaseController",
-	"sap/ui/model/json/JSONModel"
-], function (BaseController,JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/m/MessageBox",
+], function (BaseController,JSONModel,MessageBox) {
 	"use strict";
 	return BaseController.extend("webapp.controller.persons.Persons", {
 		onInit: function () {
@@ -13,48 +14,26 @@ sap.ui.define([
 		},
 		getOData: function (oArgs){
 			var jsModel = this.jPersModel;
-			var res;
-			/*
-			*	createKey version is return 500 error message. 
-			*	please, just use "read" method and don't whory :)
-			*
-				var qKey = { 
-					Pernr: oArgs.Pernr,
-					Label: oArgs.Label,
-					Value: oArgs.Value 
-				};
-				var sKey = this.ServModel.createKey('/Emps', qKey);
 
-				this.ServModel.read(sKey, qKey, {
-					success: function(oData){
-						console.log(oData)
-						res = oData.results.filter(function(el){
-							return el.Pernr == oArgs.Pernr
-						})
-						jsModel.setProperty("/User", res[0]);
-					}.bind(this),
-					error: function(){
-						MessageBox.error("Ошибка чтения данных!");
-					}
-				});
-			*/
-
-			/*
-			*	no createKey method
-			*/
-			this.ServModel.read("/Emps", {
+			var sKey = this.ServModel.createKey('/PERNRSet', { PERSNO: oArgs.PERSNO });
+			this.ServModel.read(sKey, {
 				success: function(oData){
-					res = oData.results.filter(function(el){
-						return el.Pernr == oArgs.Pernr
-					})
-					jsModel.setProperty("/User", res[0]);
+					jsModel.setProperty("/User", oData);
 				}.bind(this),
-				error: function(){
-					MessageBox.error("Ошибка чтения данных!");
-				}
-			});
+				error: function(error){
+					var json = JSON.parse(error.responseText).error;
+					
+					var errMessage = error.message+'\n\n';
+					errMessage += json.message.value+'\n\n';
+					errMessage += json.innererror.Error_Resolution.SAP_Note+'\n\n';
+					errMessage += json.innererror.Error_Resolution.SAP_Transaction+'\n\n';
 
-			
+					MessageBox.error(errMessage, {
+						title: error.statusCode+':'+error.statusText,
+					});
+					
+				}
+			});			
 			this.getView().setModel(jsModel);
 		},
 		_onRouteMatched : function (oEvent) {
